@@ -47,9 +47,9 @@ public class UserJpa implements UserDao {
     @Override
     public User save(User user) {
         LOG.trace(getClass() + " : save ... ");
-        User newUser = em.merge(user);
+        em.persist(user);
         LOG.trace(getClass() + " : save. ");
-        return newUser;
+        return user;
     }
 
     @Override

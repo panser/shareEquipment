@@ -8,18 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import ua.org.gostroy.model.persistance.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -27,7 +21,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/applicationContext.xml"})
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration(defaultRollback = true)
 public class UserDaoTest {
 
     private final Logger LOG = LogManager.getLogger(getClass());
@@ -35,10 +29,6 @@ public class UserDaoTest {
 
     @Autowired
     UserDao userDao;
-    @PersistenceContext
-    private EntityManager em;
-    @Autowired
-    JpaTransactionManager txManagerJPA;
 
     @Before
     @Transactional
@@ -46,11 +36,6 @@ public class UserDaoTest {
         testUser = new User();
         testUser.setLogin(getClass() + ": setup");
         testUser = userDao.save(testUser);
-    }
-
-    @After
-    public void destroy(){
-//        userDao.delete(testUser);
     }
 
     @Test
