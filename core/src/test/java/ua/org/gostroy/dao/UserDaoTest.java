@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import ua.org.gostroy.model.persistance.User;
 
@@ -26,7 +27,6 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/applicationContext.xml"})
-//@Transactional(propagation = Propagation.NEVER)
 @TransactionConfiguration(defaultRollback = false)
 public class UserDaoTest {
 
@@ -41,17 +41,11 @@ public class UserDaoTest {
     JpaTransactionManager txManagerJPA;
 
     @Before
-//    @Transactional
+    @Transactional
     public void setup(){
         testUser = new User();
         testUser.setLogin(getClass() + ": setup");
-
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("rootTransaction");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManagerJPA.getTransaction(def);
         testUser = userDao.save(testUser);
-        txManagerJPA.commit(status);
     }
 
     @After
@@ -59,42 +53,28 @@ public class UserDaoTest {
 //        userDao.delete(testUser);
     }
 
-//    @Test
-//    @Transactional
+    @Test
+    @Transactional
     public void findAll(){
         List<User> users = userDao.findAll();
         Assert.assertNotEquals(users.size(), 0);
     }
 
-//    @Test
-//    @Transactional
+    @Test
+    @Transactional
     public void update(){
         testUser.setLogin(getClass() + ": update");
-
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("rootTransaction");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManagerJPA.getTransaction(def);
         User updateUser = userDao.update(testUser);
-        txManagerJPA.commit(status);
-
         LOG.trace(getClass() + ": update(), testUser = " + testUser);
         LOG.trace(getClass() + ": update(), updateUser = " + updateUser);
         Assert.assertEquals(testUser.getId(),updateUser.getId());
     }
 
     @Test
-//    @Transactional
+    @Transactional
     public void save(){
         testUser.setLogin(getClass() + ": save");
-
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("rootTransaction");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManagerJPA.getTransaction(def);
         User saveUser = userDao.save(testUser);
-        txManagerJPA.commit(status);
-
         LOG.trace(getClass() + ": save(), testUser = " + testUser);
         LOG.trace(getClass() + ": save(), saveUser = " + saveUser);
         Assert.assertEquals(testUser.getId(), saveUser.getId());
