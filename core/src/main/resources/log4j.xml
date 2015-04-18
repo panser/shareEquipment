@@ -28,8 +28,7 @@
             </filter>
         </triggeringPolicy>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                   value="%d{yyyy-MM-ddHH:mm:ss.SSS} [%p] %t %c - %m%n" />
+            <param name="ConversionPattern" value="%d [%t] [%-5p] [%-30c] - %m%n"/>
         </layout>
     </appender>
 
@@ -49,8 +48,7 @@
             </filter>
         </triggeringPolicy>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                   value="%d{yyyy-MM-ddHH:mm:ss.SSS} [%p] %t %c - %m%n" />
+            <param name="ConversionPattern" value="%d [%t] [%-5p] [%-30c] - %m%n"/>
         </layout>
 
     </appender>
