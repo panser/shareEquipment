@@ -1,7 +1,7 @@
 package ua.org.gostroy.dao.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import ua.org.gostroy.dao.UserDao;
 import ua.org.gostroy.model.persistance.User;
@@ -24,47 +24,47 @@ public class UserJpa implements UserDao {
 
     @Override
     public User findOne(Long id) {
-        LOG.trace(getClass() + " : findOne ... ");
+        LOG.trace("findOne ... ");
         User user = em.find(User.class, id);
         if (user != null) {
-            LOG.trace(getClass() + " : findOne. ");
+            LOG.trace("findOne. ");
         }
         else {
-            LOG.trace(getClass() + " : findOne. Not found.");
+            LOG.trace("findOne. Not found.");
         }
         return user;
     }
 
     @Override
     public List<User> findAll() {
-        LOG.trace(getClass() + " : findAll ... ");
+        LOG.trace("findAll ... ");
         Query query = em.createQuery("SELECT e FROM User e");
         List users = (List<User>) query.getResultList();
-        LOG.trace(getClass() + " : findAll. ");
+        LOG.trace("findAll. ");
         return users;
     }
 
     @Override
     public User save(User user) {
-        LOG.trace(getClass() + " : save ... ");
+        LOG.trace("save ... ");
         em.persist(user);
-        LOG.trace(getClass() + " : save. ");
+        LOG.trace("save. ");
         return user;
     }
 
     @Override
     public User update(User user) {
-        LOG.trace(getClass() + " : update ... ");
+        LOG.trace("update ... ");
         User newUser = em.merge(user);
-        LOG.trace(getClass() + " : update. ");
+        LOG.trace("update. ");
         return newUser;
     }
 
     @Override
     public void delete(User user) {
-        LOG.trace(getClass() + " : delete ... ");
+        LOG.trace("delete ... ");
         em.remove(em.contains(user) ? user : em.merge(user));
-        LOG.trace(getClass() + " : delete. ");
+        LOG.trace("delete. ");
     }
 
 }

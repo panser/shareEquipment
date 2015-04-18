@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+<!--<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">-->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] [%-5p] [%-30c] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="SendEmailOverGmail" class="org.apache.log4j.net.SMTPAppender">
+        <param name="SMTPHost" value="smtp.gmail.com" />
+        <param name="SMTPProtocol" value="smtps" />
+        <param name="SMTPPort" value="465" />
+        <param name="SMTPUsername" value="gostroy.list" />
+        <param name="SMTPPassword" value="PolandWarsaw1200" />
+        <param name="From" value="shareEquipment@gostroy.org.ua" />
+        <param name="To" value="gostroy.list@gmail.com" />
+        <param name="Subject" value="shareEquipment log4j LOG" />
+        <param name="BufferSize" value="1" />
+        <param name="Threshold" value="TRACE" />
+
+        <triggeringPolicy  class="org.apache.log4j.rolling.FilterBasedTriggeringPolicy">
+            <filter class="org.apache.log4j.filter.LevelRangeFilter">
+                <param name="levelMin" value="ERROR" />
+            </filter>
+        </triggeringPolicy>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy-MM-ddHH:mm:ss.SSS} [%p] %t %c - %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="SendEmail" class="org.apache.log4j.net.SMTPAppender">
+        <param name="SMTPHost" value="localhost" />
+        <param name="SMTPProtocol" value="smtp" />
+        <param name="SMTPPort" value="25" />
+        <param name="From" value="shareEquipment@gostroy.org.ua" />
+        <param name="To" value="gostroy.list@gmail.com" />
+        <param name="Subject" value="shareEquipment log4j LOG" />
+        <param name="BufferSize" value="1" />
+        <param name="Threshold" value="TRACE" />
+
+        <triggeringPolicy  class="org.apache.log4j.rolling.FilterBasedTriggeringPolicy">
+            <filter class="org.apache.log4j.filter.LevelRangeFilter">
+                <param name="levelMin" value="ERROR" />
+            </filter>
+        </triggeringPolicy>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy-MM-ddHH:mm:ss.SSS} [%p] %t %c - %m%n" />
+        </layout>
+
+    </appender>
+
+    <logger name="ua.org.gostroy">
+    <!--<logger name="ua.org.gostroy" additivity="false">-->
+        <level value="info"/>
+        <appender-ref ref="SendEmailOverGmail" />
+    </logger>
+
+
+    <root>
+        <priority value ="warn" />
+        <appender-ref ref="console" />
+    </root>
+</log4j:configuration>

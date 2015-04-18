@@ -138,7 +138,8 @@
         <spring.version>4.1.0.RELEASE</spring.version>
         <tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
         <junit.version>4.11</junit.version>
-        <log4j.version>2.2</log4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <sun.mail.version>1.5.2</sun.mail.version>
         <mysql-connector.version>5.1.33</mysql-connector.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <javax.validation.version>1.1.0.Final</javax.validation.version>
@@ -260,14 +261,20 @@
 
             <!-- Logging -->
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
+                <groupId>log4j</groupId>
+                <artifactId>apache-log4j-extras</artifactId>
                 <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>${sun.mail.version}</version>
             </dependency>
 
             <!-- TestNG & Mockito -->
@@ -354,12 +361,17 @@
 
         <!-- Logging -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
         </dependency>
 
         <!-- Testing -->

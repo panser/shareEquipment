@@ -1,7 +1,7 @@
 package ua.org.gostroy.dao;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,7 +34,8 @@ public class UserDaoTest {
     @Transactional
     public void setup(){
         testUser = new User();
-        testUser.setLogin(getClass() + ": setup");
+        LOG.info(" setup(), testUser = " + testUser);
+        testUser.setLogin(" setup");
         testUser = userDao.save(testUser);
     }
 
@@ -48,20 +49,20 @@ public class UserDaoTest {
     @Test
     @Transactional
     public void update(){
-        testUser.setLogin(getClass() + ": update");
+        testUser.setLogin(" update");
         User updateUser = userDao.update(testUser);
-        LOG.trace(getClass() + ": update(), testUser = " + testUser);
-        LOG.trace(getClass() + ": update(), updateUser = " + updateUser);
+        LOG.info(" update(), testUser = " + testUser);
+        LOG.info(" update(), updateUser = " + updateUser);
         Assert.assertEquals(testUser.getId(),updateUser.getId());
     }
 
     @Test
     @Transactional
     public void save(){
-        testUser.setLogin(getClass() + ": save");
+        testUser.setLogin(" save");
         User saveUser = userDao.save(testUser);
-        LOG.trace(getClass() + ": save(), testUser = " + testUser);
-        LOG.trace(getClass() + ": save(), saveUser = " + saveUser);
+        LOG.info(" save(), testUser = " + testUser);
+        LOG.info(" save(), saveUser = " + saveUser);
         Assert.assertEquals(testUser.getId(), saveUser.getId());
     }
 }
